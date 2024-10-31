@@ -2,6 +2,7 @@ How to create an  AppImage for easy deployment!
 Using https://github.com/bridgecommand/bc for demonstration.
 
 See the following for appimage information.
+https://appimage.org/
 https://docs.appimage.org/
 https://www.appimagehub.com/
 
