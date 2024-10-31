@@ -1,5 +1,5 @@
 #!/bin/bash
-SELF=$(readlink -f "$0") #will set SELF to path with AppRun appended 
+SELF=$(readlink -f "$0") #will set SELF to our AppRun path with AppRun appended 
 echo ${SELF}
 HERE=${SELF%/*} #will set HERE to path without AppRun
 echo ${HERE}
