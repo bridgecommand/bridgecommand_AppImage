@@ -1,14 +1,14 @@
 How to create an  AppImage for easy deployment!
 Using https://github.com/bridgecommand/bc for demonstration.
 
-See the following for appimage information.
+See the following for appimage information
 https://appimage.org/
 https://docs.appimage.org/
 https://www.appimagehub.com/
 
 Making bridgecommand:
 
-sudo apt install git make cmake gcc g++
+sudo apt install git make cmake gcc g++ git
 sudo apt install cmake mesa-common-dev libxxf86vm-dev freeglut3-dev libxext-dev libxcursor-dev portaudio19-dev libsndfile1-dev libopenxr-dev
 
 # get linuxdeploy's AppImage if you don’t have it
@@ -44,20 +44,21 @@ rm -r AppDir/usr/bin/repeater
 rm -r AppDir/usr/bin/*.exe
 rm -r AppDir/usr/bin/*.dll
 
+#get our preconfiged files
+git clone https://github.com/vpelss/bridgecommand_AppImage.git
 #place AppRun script in AppDir
-cp AppRun AppDir
+cp bridgecommand_AppImage/AppRun AppDir
 #place bridgecommand.desktop in AppDir
-cp bridgecommand.desktop AppDir
-
+cp bridgecommand_AppImage/bridgecommand.desktop AppDir
 #place bridgecommand.png in AppDir
-cp bridgecommand.png AppDir
+cp bridgecommand_AppImage/bridgecommand.png AppDir
 
 #set permissions
 chmod +x AppDir/AppRun
 chmod +x AppDir/usr/bin/bridgecommand*
 chmod +x AppDir/bridgecommand.desktop
 
-# run linuxdeploy and fix up generate an AppDir (add lib) and build AppImage
+# run linuxdeploy and fix up generate an AppDir (add lib) and build AppImage “ test with ARCH=aarch64 *
 ARCH=x86_64 ./linuxdeploy-x86_64.AppImage -v 1 --appdir AppDir --output appimage
 chmod 777 Bridge_Command-x86_64.AppImage
 
@@ -99,7 +100,36 @@ Analog to mounting AppImages, there is a simple command line switch to extract t
 
 ------------------------
 
+Setting up git:
 
+generate :
+ssh-keygen -t ed25519 -C "vpelss@gmail.com"
+
+I renamed files ‘github’ and ‘github.pub’
+
+I run every time as I did not set up linux environment:
+
+git config --global user.email "vpelss@gmail.com"
+git config --global user.name "Vince Pelss"
+git remote add origin git@github.com:vpelss/bridgecommand_AppImage.git
+git remote set-url origin git@github.com:vpelss/bridgecommand_AppImage.git
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/github
+
+I took github.pub and added it to github ‘deploy keys’
+
+test access:
+ssh -T git@github.com
+git remote -v
+
+then we can:
+
+ git clone --depth 1 https://github.com/vpelss/bridgecommand_Appimage.git #don’t need old stuff
+
+change files:
+git add -f *
+git commit -m ‘new’ -a
+git push -f -v --mirror
 
 
 
