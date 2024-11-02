@@ -30,7 +30,6 @@ https://appimage.org/
 
 https://docs.appimage.org/
 
-https://www.appimagehub.com/
 
 
 
