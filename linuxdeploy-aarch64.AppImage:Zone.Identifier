@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://github.com/linuxdeploy/linuxdeploy/releases
+HostUrl=https://objects.githubusercontent.com/github-production-release-asset-2e65be/134625865/61151a41-179f-4bcd-bee7-acd71ca1b220?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20241101%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241101T000936Z&X-Amz-Expires=300&X-Amz-Signature=5d74eb2f2dd4d82dcea90d1666a0072d1498c5da692941592597e12b21f85794&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3Dlinuxdeploy-aarch64.AppImage&response-content-type=application%2Foctet-stream
