@@ -5,33 +5,22 @@ See the following for appimage information
 https://appimage.org/
 https://docs.appimage.org/
 
-Making bridgecommand:
+# 1. Making bridgecommand:
 
 sudo apt install git make cmake gcc g++ git
 sudo apt install cmake mesa-common-dev libxxf86vm-dev freeglut3-dev libxext-dev libxcursor-dev portaudio19-dev libsndfile1-dev libopenxr-dev
 
-#if building for ARM / aarch64 (pi 4) you will need to build it and package it on a PI 4 using linuxdeploy-aarch64.AppImage
-#for PI 4 wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-aarch64.AppImage
-#chmod +x linuxdeploy-aarch64.AppImage
-
-# get linuxdeploy's AppImage if you don’t have it
-# https://github.com/linuxdeploy/linuxdeploy
-# https://github.com/linuxdeploy/linuxdeploy/releases/
-wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
-chmod +x linuxdeploy-x86_64.AppImage
-
-# fetch sources (you could as well use a tarball etc.)
+#fetch sources
 git clone --depth 1 https://github.com/bridgecommand/bc.git
 
-# configure build system for AppImage
 # the flags below are the bare minimum that is needed, the app might define additional variables that might have to be set
 cmake -Bbc/bin -Sbc/src -DCMAKE_INSTALL_PREFIX=/usr
 # build the application using all CPU cores
 make -C bc/bin -j$(nproc)
 
-#set up AppImage file system
-mkdir -p AppDir/usr/bin
+# 2. Create AppDir filesystem
 
+mkdir -p AppDir/usr/bin
 cp -r bc/bin AppDir/usr
 #can clean up AppDir/usr/bin first if we like
 rm -r AppDir/usr/bin/BridgeCommand.app
@@ -61,7 +50,19 @@ chmod +x AppDir/AppRun
 chmod +x AppDir/usr/bin/bridgecommand*
 chmod +x AppDir/bridgecommand.desktop
 
-# run linuxdeploy and fix up generate an AppDir (add lib) and build AppImage 
+# 3. Get linuxdeploy and create our AppImage file
+
+# get linuxdeploy's AppImage if you don’t have it
+# https://github.com/linuxdeploy/linuxdeploy
+# https://github.com/linuxdeploy/linuxdeploy/releases/
+wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+chmod +x linuxdeploy-x86_64.AppImage
+
+#if building for ARM / aarch64 (pi 4) you will need to build it and package it on a PI 4 using linuxdeploy-aarch64.AppImage
+#for PI 4 wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-aarch64.AppImage
+#chmod +x linuxdeploy-aarch64.AppImage
+
+#run linuxdeploy and fix up generate an AppDir (add lib) and build AppImage 
 ARCH=x86_64 ./linuxdeploy-x86_64.AppImage -v 1 --appdir AppDir --output appimage
 chmod 777 Bridge_Command-x86_64.AppImage
 chmod 777 Bridge_Command-x86_64.AppImage
