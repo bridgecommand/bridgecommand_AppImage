@@ -63,8 +63,7 @@ chmod +x linuxdeploy-x86_64.AppImage
 #chmod +x linuxdeploy-aarch64.AppImage
 
 #run linuxdeploy and fix up generate an AppDir (add lib) and build AppImage 
-ARCH=x86_64 ./linuxdeploy-x86_64.AppImage -v 1 --appdir AppDir --output appimage
-chmod 777 Bridge_Command-x86_64.AppImage
+ARCH=x86_64 ./linuxdeploy-x86_64.AppImage -v 0 --appdir AppDir --output appimage
 chmod 777 Bridge_Command-x86_64.AppImage
 
 #run it
@@ -135,6 +134,57 @@ change files:
 git add -f *
 git commit -m ‘new’ -a
 git push -f -v --mirror
+
+---------------------
+
+NEEDS WORK
+
+If you want to generate an AppImage manually, you can:
+
+
+runtime:
+#!/bin/sh
+clear
+HOMEPATH="`pwd`"
+EXTRACTFILE=`mktemp`
+echo ${EXTRACTFILE}
+DIRPATH=`mktemp -u`
+echo ${DIRPATH}
+tail -n +${NUMBEROFLINES} "$0" > ${EXTRACTFILE} #${NUMBEROFLINES} replaced from buildit.sh
+unsquashfs -d ${DIRPATH} ${EXTRACTFILE}
+BINPATH="${DIRPATH}/usr/bin"
+cd ${BINPATH}
+echo ${BINPATH}
+`${BINPATH}/bridgecommand` #run our app
+rm ${EXTRACTFILE}
+rm -r ${DIRPATH}
+exit 1
+
+
+
+
+
+
+
+mksquashfs Your.AppDir Your.squashfs -root-owned -noappend
+cat runtime > Your.AppImage
+cat Your.squashfs >> Your.AppImage
+chmod a+x Your.AppImage
+
+
+https://stackoverflow.com/questions/10491704/embed-a-executable-binary-in-a-shell-script
+https://articles.singee.me/embed-bin-in-shell-script?locale=en
+https://www.geeksforgeeks.org/piping-in-unix-or-linux/
+
+It works:
+https://makeself.io/
+git clone https://github.com/megastep/makeself.git
+eg: makeself/makeself.sh --threads=0 AppDir myimage.sh label ./AppRun
+
+
+
+
+
 
 
 
