@@ -28,13 +28,13 @@ jobs:
         #cd src
         #sed -i 's/#add_definitions(-DFOR_DEB)/add_definitions(-DFOR_DEB)/g' CMakeLists.txt
         #cat CMakeLists.txt
-        #cd bin
+        cd bin
         cmake ../src
 
     - name: Build
       # Build your program with the given configuration
       run: |
-        cd bin
+        #cd bin
         make
         ./bridgecommand --version
         cd ../../
