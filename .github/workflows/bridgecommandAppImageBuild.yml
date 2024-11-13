@@ -22,13 +22,13 @@ jobs:
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: |
         sudo apt-get update
-        sudo apt-get install libopencv-dev
+        #sudo apt-get install libopencv-dev
         sudo apt-get install cmake mesa-common-dev libxxf86vm-dev freeglut3-dev libxext-dev libxcursor-dev portaudio19-dev libsndfile1-dev libopenxr-dev
         git clone --depth 1 https://github.com/bridgecommand/bc.git
         #cd src
         #sed -i 's/#add_definitions(-DFOR_DEB)/add_definitions(-DFOR_DEB)/g' CMakeLists.txt
         #cat CMakeLists.txt
-        cd ../bin
+        #cd bin
         cmake ../src
 
     - name: Build
