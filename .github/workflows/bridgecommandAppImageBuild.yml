@@ -30,8 +30,9 @@ jobs:
 
     - name: Build
       # Build your program with the given configuration
-      run: 
+      run: |
         ls -l
+        cd bc
         make
         #./bridgecommand --version
         cd ../../
