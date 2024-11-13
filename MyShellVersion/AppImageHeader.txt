@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 clear
 HOMEPATH="`pwd`"
 EXTRACTFILE=`mktemp`
@@ -7,10 +7,7 @@ DIRPATH=`mktemp -u`
 echo ${DIRPATH}
 tail -n +${NUMBEROFLINES} "$0" > ${EXTRACTFILE} #${NUMBEROFLINES} replaced from buildit.sh
 unsquashfs -d ${DIRPATH} ${EXTRACTFILE}
-BINPATH="${DIRPATH}/usr/bin"
-cd ${BINPATH}
-echo ${BINPATH}
-`${BINPATH}/bridgecommand` #run our app
+`${DIRPATH}/AppRun`
 rm ${EXTRACTFILE}
 rm -r ${DIRPATH}
 exit 1

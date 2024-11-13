@@ -1,19 +1,17 @@
-#!/bin/bash
+#!/bin/sh
 clear
-#args
-
 HEADERSCRIPT="AppImageHeader.txt"
 FOLDERTOSQUASH="Your.AppDir"
 TEMPSQUASHFS="Temp.squashfs "
 APPIMAGENAME="Your.AppImage"
 echo "Start AppImage build of ${APPIMAGENAME} "
 
-TEMPSTRING=$(cat ${HEADERSCRIPT}) #load file to string
-TEMPSTRING=echo ${TEMPSTRING} | sed '$d' #remove last whitespace?
+TEMPSTRING=`cat ${HEADERSCRIPT}`  #load file to string
+TEMPSTRING=echo ${TEMPSTRING} | sed '$d'  #remove last whitespace?
 
-NUMBEROFLINEFEEDS=$(echo "${TEMPSTRING}" | wc -l)
-echo ${NUMBEROFLINEFEEDS}
-let "NUMBEROFLINES=NUMBEROFLINEFEEDS+1"
+NUMBEROFLINEFEEDS=$(echo "${TEMPSTRING}" | wc -l )
+NUMBEROFLINES=$((NUMBEROFLINEFEEDS+1))
+
 #replace string ${NUMBEROFLINES} with value of '${NUMBEROFLINES} then save it to ${APPIMAGENAME}
 echo "${TEMPSTRING}" | awk -v find='${NUMBEROFLINES}' -v repl=${NUMBEROFLINES} '{
     while (i=index($0,find)) 
