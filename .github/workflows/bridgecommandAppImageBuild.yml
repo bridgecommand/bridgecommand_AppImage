@@ -23,9 +23,9 @@ jobs:
         sudo apt-get update
         sudo apt-get install cmake mesa-common-dev libxxf86vm-dev freeglut3-dev libxext-dev libxcursor-dev portaudio19-dev libsndfile1-dev libopenxr-dev
         git clone --depth 1 https://github.com/bridgecommand/bc.git
-        cd src
-        sed -i 's/#add_definitions(-DFOR_DEB)/add_definitions(-DFOR_DEB)/g' CMakeLists.txt
-        cat CMakeLists.txt
+        #cd src
+        #sed -i 's/#add_definitions(-DFOR_DEB)/add_definitions(-DFOR_DEB)/g' CMakeLists.txt
+        #cat CMakeLists.txt
         cd ../bin
         cmake ../src
 
@@ -71,13 +71,9 @@ jobs:
         ARCH=x86_64 ./linuxdeploy-x86_64.AppImage -v 1 --appdir AppDir --output appimage
         chmod 777 Bridge_Command-x86_64.AppImage
         cp Bridge_Command-x86_64.AppImage bc
-        #cd createDeb
-        #./buildDeb
-        ls -l bc
       
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: Bridge_Command-x86_64.AppImage 
         path: Bridge_Command-x86_64.AppImage 
-        #path: bin/createDeb/bridgecommand.deb
