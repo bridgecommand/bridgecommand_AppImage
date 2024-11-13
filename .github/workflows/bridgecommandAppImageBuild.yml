@@ -31,8 +31,7 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: |
-        ls -l
-        cd bc
+        cd bc/bin
         make
         #./bridgecommand --version
         cd ../../
