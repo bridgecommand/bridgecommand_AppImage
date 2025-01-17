@@ -68,9 +68,10 @@ jobs:
         chmod +x linuxdeploy-x86_64.AppImage
         #run linuxdeploy and fix up generate an AppDir (add lib) and build AppImage 
         ARCH=x86_64 ./linuxdeploy-x86_64.AppImage -v 1 --appdir AppDir --output appimage
-        chmod 777 Bridge_CommandB-x86_64.AppImage
-        cp Bridge_CommandB-x86_64.AppImage bc
-      
+        chmod 777 Bridge_Command-x86_64.AppImage
+        mv Bridge_Command-x86_64.AppImage Bridge_CommandB-x86_64.AppImage 
+        #cp Bridge_CommandB-x86_64.AppImage bc
+       
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
