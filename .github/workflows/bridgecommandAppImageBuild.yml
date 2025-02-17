@@ -1,21 +1,46 @@
 name: bridgecommandAppImageBuild
 
 on: workflow_dispatch
-    
-env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
 
 jobs:
-  build:
-    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
-    # You can convert this to a matrix build if you need cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: ubuntu-22.04
-    #container: centos:7
+
+  build-and-test:
+    strategy:
+      matrix:
+        include:
+          - ARCH: x86_64
+            RUNS_ON: ubuntu-24.04
+            BUILD_TYPE: appimage
+          - ARCH: aarch64
+            RUNS_ON: ubuntu-22.04-arm
+            BUILD_TYPE: appimage
+      fail-fast: false
+
+    name: SNIS ${{ matrix.BUILD_TYPE }} ${{ matrix.ARCH }}
+    runs-on: ${{ matrix.RUNS_ON }}
     
+    env:
+      ARCH: ${{ matrix.ARCH }}
+      BUILD_TYPE: ${{ matrix.BUILD_TYPE }}
+      # make sure to always(!) pull the base image
+      UPDATE: 1
+      
     steps:
     - uses: actions/checkout@v4
+
+    - name: get linuxdeploy-x86_64.AppImage
+      if: ${{ matrix.ARCH == 'x86_64' }} 
+      run: |      
+        wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+        mv linuxdeploy-x86_64.AppImage linuxdeploy.AppImage
+        chmod +x linuxdeploy.AppImage  
+    - name: get linuxdeploy-aarch64.AppImage
+      if: ${{ matrix.ARCH == 'aarch64' }}
+      run: |
+        #wget https://github.com/linuxdeploy/linuxdeploy/releases/download/1-alpha-20250213-2/linuxdeploy-aarch64.AppImage
+        wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-aarch64.AppImage
+        mv linuxdeploy-aarch64.AppImage linuxdeploy.AppImage
+        chmod +x linuxdeploy.AppImage  
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
@@ -24,6 +49,7 @@ jobs:
         sudo apt-get update
         #sudo apt-get install libopencv-dev
         sudo apt-get install cmake mesa-common-dev libxxf86vm-dev freeglut3-dev libxext-dev libxcursor-dev portaudio19-dev libsndfile1-dev libopenxr-dev
+        sudo apt install libfuse2
         git clone --depth 1 https://github.com/bridgecommand/bc.git
         cd bc/bin
         cmake ../src
@@ -62,25 +88,22 @@ jobs:
         chmod +x AppDir/AppRun
         chmod +x AppDir/usr/bin/bridgecommand*
         chmod +x AppDir/bridgecommand.desktop
-        # 3. Get linuxdeploy and create our AppImage file
-        sudo apt install libfuse2
-        wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
-        chmod +x linuxdeploy-x86_64.AppImage
+        # 3. create our AppImage file
         #run linuxdeploy and fix up generate an AppDir (add lib) and build AppImage 
-        ARCH=x86_64 ./linuxdeploy-x86_64.AppImage -v 1 --appdir AppDir --output appimage
-        chmod 777 Bridge_Command-x86_64.AppImage
-        mv Bridge_Command-x86_64.AppImage Bridge_CommandB-x86_64.AppImage 
+        ARCH=${{ matrix.ARCH }} ./linuxdeploy.AppImage -v 1 --appdir AppDir --deploy-deps-only=$AppDir/usr/bin --output appimage
+        chmod 777 Bridge_Command-${{ matrix.ARCH }}.AppImage
+        #mv Bridge_Command-x86_64.AppImage Bridge_CommandB-x86_64.AppImage 
         #cp Bridge_CommandB-x86_64.AppImage bc
        
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: Bridge_CommandB-x86_64.AppImage 
-        path: Bridge_CommandB-x86_64.AppImage 
+        name: Bridge_Command-${{ matrix.ARCH }}.AppImage 
+        path: Bridge_Command-${{ matrix.ARCH }}.AppImage 
 
     - name: upload binaries to release
       uses: softprops/action-gh-release@v2
       #if: ${{startsWith(github.ref, 'refs/tags/') }}
       with:
           tag_name: "release_me"
-          files: Bridge_CommandB-x86_64.AppImage  
+          files: Bridge_Command-${{ matrix.ARCH }}.AppImage  
