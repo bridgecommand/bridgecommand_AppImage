@@ -85,9 +85,9 @@ jobs:
         #place bridgecommand.png in AppDir
         cp bridgecommand_AppImage/bridgecommand.png AppDir
         #set permissions
-        chmod +x AppDir/AppRun
-        chmod +x AppDir/usr/bin/bridgecommand*
-        chmod +x AppDir/bridgecommand.desktop
+        #chmod +x AppDir/AppRun
+        #chmod +x AppDir/usr/bin/bridgecommand*
+        #chmod +x AppDir/bridgecommand.desktop
         # 3. create our AppImage file
         #run linuxdeploy and fix up generate an AppDir (add lib) and build AppImage 
         ARCH=${{ matrix.ARCH }} ./linuxdeploy.AppImage -v 1 --appdir AppDir --deploy-deps-only=$AppDir/usr/bin --output appimage
