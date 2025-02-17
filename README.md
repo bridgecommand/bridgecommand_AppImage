@@ -1,36 +1,19 @@
-# bridgecommand_AppImage
+# bridgecommand AppImage
+
 bridgecommand_AppImage how to build
 
 See:
 https://github.com/vpelss/bridgecommand_AppImage/blob/main/instructions.txt
 
-Download a working AppImage for PC (x86_64) or PI 4 (aarch64):
 
-https://www.emogic.com/bc
 
-You must make it executable:
-
-chmod +x Bridge_Command-x86_64.AppImage
-
-or
-
-chmod +x Bridge_Command-aarch64.AppImage
-
-Then run:
-
-./Bridge_Command-x86_64.AppImage
-
-or
-
-Bridge_Command-aarch64.AppImage
-
-Space Nerds in Space is a linux only space bridge simulator.
+Bridgecommand is naval ship simulator.
 
 You can build it yourself here:
 
-https://smcameron.github.io/space-nerds-in-space/
+[https://smcameron.github.io/space-nerds-in-space/](https://github.com/bridgecommand/bc)
 
-I have created a Linux AppImage for Space Nerds In Space for those who can't compile it.
+I have created a Linux AppImage for Bridgecommand for those who can't compile it.
 
 My AppImage version is here: https://github.com/vpelss/Space-Nerds-In-Space-Appimage/releases/tag/download
 
