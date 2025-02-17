@@ -30,7 +30,7 @@ chmod +x Bridge_Command-x86_64.AppImage
 
 Make a Desktop Icon
 
-If you save Space_Nerds_in_Space-x86_64.AppImage in ~/AppImages/Space_Nerds_in_Space-x86_64.AppImage, then you would place a desttop file here: ~/.local/share/applications/snis.desktop and your snis.desktop file might contain the following. Also if you want the icon, download it also. Note that the paths MUST be absolute.
+If you save Bridge_Command-x86_64.AppImage in ~/AppImages/Bridge_Command-x86_64.AppImage, then you would place a desttop file here: ~/.local/share/applications/bridgecommand.desktop and your bridgecommand.desktop file might contain the following. Also if you want the icon, download it also. Note that the paths MUST be absolute.
 
 ```
 [Desktop Entry]
