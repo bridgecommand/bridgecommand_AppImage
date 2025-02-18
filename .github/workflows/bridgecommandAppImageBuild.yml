@@ -55,7 +55,7 @@ jobs:
         cmake ../src
 
     - name: Find version
-      run : echo "bc_version"=$(./bridgecommand --version)" >> $GITHUB_ENV
+      run : echo "bc_version=$(./bridgecommand --version)" >> $GITHUB_ENV
 
     - name: Build
       # Build your program with the given configuration
