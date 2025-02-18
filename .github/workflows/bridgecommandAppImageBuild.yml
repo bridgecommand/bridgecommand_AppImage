@@ -79,6 +79,8 @@ jobs:
         #get our preconfiged files
         git clone --depth 1 https://github.com/vpelss/bridgecommand_AppImage.git
         cp bridgecommand_AppImage/AppRun AppDir
+        mkdir -p AppDir/usr/share/applications
+        mkdir -p AppDir/usr/share/icons/hicolor/128x128/apps
         cp bridgecommand_AppImage/bridgecommand.desktop AppDir/usr/share/applications
         cp bridgecommand_AppImage/bridgecommand.png AppDir/usr/share/icons/hicolor/128x128/apps
         chmod +x AppDir/AppRun
