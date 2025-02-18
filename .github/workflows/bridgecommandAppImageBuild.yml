@@ -89,15 +89,23 @@ jobs:
         ARCH=${{ matrix.ARCH }} ./linuxdeploy.AppImage -v 1 --appdir AppDir --deploy-deps-only=$AppDir/usr/bin --output appimage
         chmod 777 Bridge_Command-${{ matrix.ARCH }}.AppImage
        
+    - name: Find version
+      run : |
+        cd bc/bin
+        echo "bc_version=$(./bridgecommand --version)" >> $GITHUB_ENV
+
+    - name: Rename for version
+      run : mv Bridge_Command-${{ matrix.ARCH }}.AppImage Bridge_Command-${{ env.bc_version }}-${{ matrix.ARCH }}.AppImage
+
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: Bridge_Command-${{ matrix.ARCH }}.AppImage 
-        path: Bridge_Command-${{ matrix.ARCH }}.AppImage 
+        name: Bridge_Command-${{ env.bc_version }}-${{ matrix.ARCH }}.AppImage 
+        path: Bridge_Command-${{ env.bc_version }}-${{ matrix.ARCH }}.AppImage
 
     - name: upload binaries to release
       uses: softprops/action-gh-release@v2
       #if: ${{startsWith(github.ref, 'refs/tags/') }}
       with:
           tag_name: "Download"
-          files: Bridge_Command-${{ matrix.ARCH }}.AppImage  
+          files: Bridge_Command-${{ env.bc_version }}-${{ matrix.ARCH }}.AppImage  
