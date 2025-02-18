@@ -81,10 +81,10 @@ jobs:
         #place AppRun script in AppDir
         cp bridgecommand_AppImage/AppRun AppDir
         #place bridgecommand.desktop in AppDir
-        cp bridgecommand_AppImage/bridgecommand.desktop AppDir
+        #cp bridgecommand_AppImage/bridgecommand.desktop AppDir
         cp bridgecommand_AppImage/bridgecommand.desktop AppDir/usr/share/applications
         #place bridgecommand.png in AppDir
-        cp bridgecommand_AppImage/bridgecommand.png AppDir
+        #cp bridgecommand_AppImage/bridgecommand.png AppDir
         cp bridgecommand_AppImage/bridgecommand.png AppDir/usr/share/icons/hicolor/128x128/apps
         #set permissions
         chmod +x AppDir/AppRun
