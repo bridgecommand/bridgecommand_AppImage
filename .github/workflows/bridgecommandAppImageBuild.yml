@@ -54,9 +54,6 @@ jobs:
         cd bc/bin
         cmake ../src
 
-    - name: Find version
-      run : echo "bc_version=$(./bridgecommand --version)" >> $GITHUB_ENV
-
     - name: Build
       # Build your program with the given configuration
       run: |
@@ -90,9 +87,16 @@ jobs:
         # 3. create our AppImage file
         #run linuxdeploy and fix up generate an AppDir (add lib) and build AppImage 
         ARCH=${{ matrix.ARCH }} ./linuxdeploy.AppImage -v 1 --appdir AppDir --deploy-deps-only=$AppDir/usr/bin --output appimage
-        mv Bridge_Command-${{ matrix.ARCH }}.AppImage Bridge_Command-${{ env.bc_version }}-${{ matrix.ARCH }}.AppImage
-        chmod 777 Bridge_Command-${{ env.bc_version }}-${{ matrix.ARCH }}.AppImage
+        chmod 777 Bridge_Command-${{ matrix.ARCH }}.AppImage
        
+    - name: Find version
+      run : |
+        cd bc/bin
+        echo "bc_version=$(./bridgecommand --version)" >> $GITHUB_ENV
+
+    - name: Rename for version
+      run : mv Bridge_Command-${{ matrix.ARCH }}.AppImage Bridge_Command-${{ env.bc_version }}-${{ matrix.ARCH }}.AppImage
+
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
