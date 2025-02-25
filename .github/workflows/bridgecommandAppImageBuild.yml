@@ -16,7 +16,7 @@ jobs:
             BUILD_TYPE: appimage
       fail-fast: false
 
-    name: SNIS ${{ matrix.BUILD_TYPE }} ${{ matrix.ARCH }}
+    name: BC ${{ matrix.BUILD_TYPE }} ${{ matrix.ARCH }}
     runs-on: ${{ matrix.RUNS_ON }}
     
     env:
