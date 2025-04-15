@@ -37,7 +37,6 @@ jobs:
     - name: get linuxdeploy-aarch64.AppImage
       if: ${{ matrix.ARCH == 'aarch64' }}
       run: |
-        #wget https://github.com/linuxdeploy/linuxdeploy/releases/download/1-alpha-20250213-2/linuxdeploy-aarch64.AppImage
         wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-aarch64.AppImage
         mv linuxdeploy-aarch64.AppImage linuxdeploy.AppImage
         chmod +x linuxdeploy.AppImage  
@@ -47,7 +46,6 @@ jobs:
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: |
         sudo apt-get update
-        #sudo apt-get install libopencv-dev
         sudo apt-get install cmake mesa-common-dev libxxf86vm-dev freeglut3-dev libxext-dev libxcursor-dev portaudio19-dev libsndfile1-dev libopenxr-dev
         sudo apt install libfuse2
         git clone --depth 1 https://github.com/bridgecommand/bc.git
@@ -59,7 +57,6 @@ jobs:
       run: |
         cd bc/bin
         make
-        #./bridgecommand --version
         cd ../../
         mkdir -p AppDir/usr/bin
         cp -r bc/bin AppDir/usr
@@ -77,7 +74,7 @@ jobs:
         rm -r AppDir/usr/bin/*.exe
         rm -r AppDir/usr/bin/*.dll
         #get our preconfiged files
-        git clone --depth 1 https://github.com/vpelss/bridgecommand_AppImage.git
+        git clone --depth 1 https://github.com/bridgecommand/bridgecommand_AppImage.git
         cp bridgecommand_AppImage/AppRun AppDir
         mkdir -p AppDir/usr/share/applications
         mkdir -p AppDir/usr/share/icons/hicolor/128x128/apps
