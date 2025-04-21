@@ -60,6 +60,8 @@ jobs:
         cd ../../
         mkdir -p AppDir/usr/bin
         cp -r bc/bin AppDir/usr
+        #copy documentation, there might be a better place for this
+        cp -r bc/doc AppDir/usr/bin/
         #can clean up AppDir/usr/bin first if we like
         rm -r AppDir/usr/bin/BridgeCommand.app
         rm -r AppDir/usr/bin/CMakeFiles
