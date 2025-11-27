@@ -77,7 +77,7 @@ jobs:
         rm -r AppDir/usr/bin/*.exe
         rm -r AppDir/usr/bin/*.dll
         #get our preconfiged files
-        git clone --depth 1 https://github.com/vpelss/bridgecommand_AppImage.git
+        git clone --depth 1 https://github.com/bridgecommand/bridgecommand_AppImage.git
         cp bridgecommand_AppImage/AppRun AppDir
         mkdir -p AppDir/usr/share/applications
         mkdir -p AppDir/usr/share/icons/hicolor/128x128/apps
